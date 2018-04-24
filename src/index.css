@@ -1,0 +1,7 @@
+.ant-layout-sider{
+    max-width: 400px !important;
+    flex: 0 0 250px !important;
+}
+ant-layout-content{
+    flex: 0 0 700px !important;
+}

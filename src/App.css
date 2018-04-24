@@ -1,0 +1,77 @@
+/*.App {*/
+  /*text-align: center;*/
+/*}*/
+
+/*.App-logo {*/
+  /*animation: App-logo-spin infinite 20s linear;*/
+  /*height: 80px;*/
+/*}*/
+
+/*.App-header {*/
+  /*background-color: #222;*/
+  /*height: 150px;*/
+  /*padding: 20px;*/
+  /*color: white;*/
+/*}*/
+
+/*.App-title {*/
+  /*font-size: 1.5em;*/
+/*}*/
+
+/*.App-intro {*/
+  /*font-size: large;*/
+/*}*/
+
+/*@keyframes App-logo-spin {*/
+  /*from { transform: rotate(0deg); }*/
+  /*to { transform: rotate(360deg); }*/
+/*}*/
+
+.page{
+    padding: 0px;
+    margin: 0px;
+    height: 2000px;
+}
+
+.img{
+    height: 100%;
+    width: 100%;
+
+}
+.top{
+    height: 20%;
+    background-color: antiquewhite;
+}
+.main{
+    height: 70%;
+    margin: auto;
+    padding: 0;
+    width: 80%;
+    background-color: rgb(236,237,233);
+}
+.main-left{
+    background-color: aqua;
+    float: left;
+    width: 40%;
+    height: 100%;
+}
+.main-right{
+    background-color: aquamarine;
+    float: right;
+    width: 60%;
+    height: 100%;
+}
+.foot{
+    height: 10%;
+    background-color: blanchedalmond;
+
+}
+.ant-card-head {
+    background: #21dd98 !important;
+}
+
+.left{
+    width: 50%;
+    margin-left: 20%;
+    height: 600px;
+}
