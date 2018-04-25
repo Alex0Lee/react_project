@@ -166,7 +166,7 @@ class RegistrationForm extends React.Component {
                     label="职位"
                 >
                     {getFieldDecorator('level', {
-                        initialValue: this.props.level,
+                        initialValue: "teacher",
                         rules: [{
                             message: 'The input is not valid E-mail!',
                         }, {

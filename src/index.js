@@ -5,7 +5,7 @@ import App from './App';
 import {Layout, Card, Input} from 'antd';
 import { Radio } from 'antd';
 import registerServiceWorker from './registerServiceWorker';
-
+import { BrowserRouter } from 'react-router-dom'
 const {RadioGroup} = Radio.Group;
 const {Header, Sider, Footer, Content} = Layout;
 const {Meta} = Card;
@@ -21,6 +21,9 @@ function Appp() {
   );
 }
 
-ReactDOM.render(<App/>
+ReactDOM.render(
+    <BrowserRouter>
+    <App/>
+    </BrowserRouter>
     , document.getElementById('root'));
 registerServiceWorker();
