@@ -1,20 +1,15 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'antd/dist/antd.css';
-import {Icon, Avatar, Menu, Layout, Card, Input, Tag, Tooltip, List} from 'antd';
-import {Radio, Button, AutoComplete} from 'antd';
-import {Select} from 'antd';
+import {Icon, Avatar, Layout, Card, Input, Tag, Tooltip, List} from 'antd';
 import WrappedRegistrationForm from './person';
 import {Link} from 'react-router-dom'
 import Switch from "react-router-dom/es/Switch";
 import Route from "react-router-dom/es/Route";
+import Button from "antd/es/button/button";
 
-const Option = Select.Option;
-const {RadioGroup} = Radio.Group;
 const {Header, Sider, Footer, Content} = Layout;
 const {Meta} = Card;
-const SubMenu = Menu.SubMenu;
 const gridStyle = {
     width: '100%',
     textAlign: 'center',
@@ -123,7 +118,7 @@ class Right_myTag extends Component {
         }
         console.log(tags);
         this.setState({
-            person_tags:tags,
+            person_tags: tags,
             inputPersonVisible: false,
             inputValue: '',
         });
@@ -137,7 +132,7 @@ class Right_myTag extends Component {
         }
         console.log(tags);
         this.setState({
-            room_tags:tags,
+            room_tags: tags,
             inputRoomVisible: false,
             inputValue: '',
         });
@@ -289,10 +284,11 @@ class Right_editPassword extends Component {
 class Right_roomCollection extends Component {
     render() {
         const listData = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 4; i++) {
             listData.push({
                 href: 'http://ant.design',
-                title: `ant design part ${i}`,
+                title: `中山亭 乐和城 少帅府${i}`,
+                type: "3室2厅2卫",
                 avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
                 description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
                 content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
@@ -300,47 +296,71 @@ class Right_roomCollection extends Component {
         }
 
         const pagination = {
-            pageSize: 10,
+            pageSize: 4,
             current: 1,
             total: listData.length,
             onChange: (() => {
             }),
         };
-
-        const IconText = ({type, text}) => (
-            <span>
-    <Icon type={type} style={{marginRight: 8}}/>
-                {text}
-  </span>
-        );
-
         return (
-            <div>
-                <List
-                    itemLayout="vertical"
-                    size="middle"
-                    pagination={pagination}
-                    dataSource={listData}
-                    footer={<div><b>ant design</b> footer part</div>}
-                    renderItem={item => (
-                        <List.Item
-                            key={item.title}
-                            actions={[<IconText type="star-o" text="156"/>, <IconText type="like-o" text="156"/>,
-                                <IconText type="message" text="2"/>]}
-                            extra={<img width={200} alt="logo"
-                                        src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"/>}
-                        >
-                            <List.Item.Meta
-                                avatar={<Avatar src={item.avatar}/>}
-                                title={<a href={item.href}>{item.title}</a>}
-                                description={item.description}
-                            />
-                            {item.content}
-                        </List.Item>
-                    )}
-                />
-            </div>
+            <List
+                grid={{gutter: 16, column: 1}}
+                dataSource={listData}
+                pagination={pagination}
+                renderItem={item => (
 
+                    <List.Item
+                    >
+                        <div className="data_card" style={{
+                            width: "80%",
+                            boxShadow: "0 1px 1px 1px rgba(0,0,0,0.1)",
+                            textAlign: "center",
+                            margin: "auto",
+                            backgroundColor: "white",
+                            //borderRadius: "5px",
+                            height: "150px",
+                            borderColor: "gray",
+                            marginTop: "8px"
+                        }}>
+                            <div style={{
+                                width: "30%",
+                                height: "100%",
+                                display: 'flex',
+                                float: "left",
+                            }}>
+                                <img
+                                    style={{
+                                        width: "80%",
+                                        margin: "auto",
+                                    }}
+                                    src="https://pic1.ajkimg.com/display/hj/4b7079e03947ce07f0e288dd434ed554/240x180m.jpg?t=1"/>
+                            </div>
+                            <div
+                                style={{
+                                    width: "70%",
+                                    float: "right",
+                                    textAlign: "left",
+                                    height: "100%",
+                                }}
+                            >
+                                <p style={{
+                                    fontSize: '18px',
+                                    height: "auto",
+                                    marginTop: '3px',
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap",
+                                    width: "100%",
+                                    overflow: "hidden"
+                                }}>{item.title}</p>
+                                <p style={{height: "10px"}}>{item.type}</p>
+                                <p style={{height: "10px"}}>ggg</p>
+                                <p style={{height: "10px"}}>ggg</p>
+                            </div>
+                        </div>
+                    </List.Item>
+
+                )}
+            />
         )
     }
 
@@ -348,8 +368,86 @@ class Right_roomCollection extends Component {
 
 class Right_roomPublish extends Component {
 
+
     render() {
-        return <p>Right_roomPublish</p>
+        const listData = [];
+        for (let i = 0; i < 1; i++) {
+            listData.push({
+                href: 'http://ant.design',
+                title: `中山亭 乐和城 少帅府${i}`,
+                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+                content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+            });
+        }
+
+        const pagination = {
+            pageSize: 4,
+            current: 1,
+            total: listData.length,
+            onChange: (() => {
+            }),
+        };
+        return (
+            <List
+                grid={{gutter: 16, column: 1}}
+                dataSource={listData}
+                pagination={pagination}
+                renderItem={item => (
+
+                    <List.Item
+                    >
+                        <div className="data_card" style={{
+                            width: "80%",
+                            boxShadow: "0 1px 1px 1px rgba(0,0,0,0.1)",
+                            textAlign: "center",
+                            margin: "auto",
+                            backgroundColor: "white",
+                            //borderRadius: "5px",
+                            height: "150px",
+                            borderColor: "gray",
+                            marginTop: "8px"
+                        }}>
+                            <div style={{
+                                width: "30%",
+                                height: "100%",
+                                display: 'flex',
+                                float: "left",
+                            }}>
+                                <img
+                                    style={{
+                                        width: "80%",
+                                        margin: "auto",
+                                    }}
+                                    src="https://pic1.ajkimg.com/display/hj/4b7079e03947ce07f0e288dd434ed554/240x180m.jpg?t=1"/>
+                            </div>
+                            <div
+                                style={{
+                                    width: "70%",
+                                    float: "right",
+                                    textAlign: "left",
+                                    height: "100%",
+                                }}
+                            >
+                                <p style={{
+                                    fontSize: '18px',
+                                    height: "auto",
+                                    marginTop: '3px',
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap",
+                                    width: "100%",
+                                    overflow: "hidden"
+                                }}>{item.title}</p>
+                                <p style={{height: "10px"}}>gg</p>
+                                <p style={{height: "10px"}}>ggg</p>
+                                <p style={{height: "10px"}}>ggg</p>
+                            </div>
+                        </div>
+                    </List.Item>
+
+                )}
+            />
+        )
     }
 
 }
@@ -357,7 +455,91 @@ class Right_roomPublish extends Component {
 class Right_activityCollection extends Component {
 
     render() {
-        return <p>Right_activityCollection</p>
+        const listData = [];
+        for (let i = 0; i < 1; i++) {
+            listData.push({
+                href: 'http://ant.design',
+                title: `中南大学搞事情大会${i}`,
+                datetime: "2018年4月28日 12:00",
+                location:"中南大学新校区",
+                type:"读书分享会",
+                host:"生活家",
+                price:"100元",
+            });
+        }
+
+        const pagination = {
+            pageSize: 4,
+            current: 1,
+            total: listData.length,
+            onChange: (() => {
+            }),
+        };
+        return (
+            <List
+                grid={{gutter: 16, column: 1}}
+                dataSource={listData}
+                pagination={pagination}
+                renderItem={item => (
+
+                    <List.Item
+                    >
+                        <div className="data_card" style={{
+                            width: "80%",
+                            boxShadow: "0 1px 1px 1px rgba(0,0,0,0.1)",
+                            textAlign: "center",
+                            margin: "auto",
+                            backgroundColor: "white",
+                            //borderRadius: "5px",
+                            height: "300px",
+                            borderColor: "gray",
+                            marginTop: "8px"
+                        }}>
+                            <div style={{
+                                width: "30%",
+                                height: "100%",
+                                display: 'flex',
+                                float: "left",
+                            }}>
+                                <img
+                                    style={{
+                                        width: "144",
+                                        height: "209px",
+                                        margin: "auto",
+                                    }}
+                                    src="http://shenghuojia-1252429498.coscd.myqcloud.com/s29708055.jpg"/>
+                            </div>
+                            <div
+                                style={{
+                                    width: "70%",
+                                    float: "right",
+                                    textAlign: "left",
+                                    height: "100%",
+                                }}
+                            >
+                                <p style={{
+                                    fontSize: '18px',
+                                    height: "auto",
+                                    marginTop: '3px',
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap",
+                                    width: "100%",
+                                    overflow: "hidden",
+                                    marginTop:"20px",
+                                    marginBottom:"20px"
+                                }}>{item.title}</p>
+                                <p style={{}}>时间：{item.datetime}</p>
+                                <p style={{}}>地点：{item.location}</p>
+                                <p style={{}}>类型：{item.type}</p>
+                                <p style={{}}>主办方：{item.host}</p>
+                                <p style={{}}>票价： {item.price}    <Button type="primary" ghost>购票</Button></p>
+                            </div>
+                        </div>
+                    </List.Item>
+
+                )}
+            />
+        )
     }
 
 }

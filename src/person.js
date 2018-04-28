@@ -74,7 +74,7 @@ class RegistrationForm extends React.Component {
             },
         };
         return (
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} type={{height:"100%"}}>
                 <FormItem
                     {...formItemLayout}
                     label="账号"

@@ -5,3 +5,6 @@
 ant-layout-content{
     flex: 0 0 700px !important;
 }
+.ant-form-item{
+    margin-top: 10px !important;
+}

@@ -50,7 +50,7 @@
     background-color: rgb(236,237,233);
 }
 .main-left{
-    background-color: aqua;
+    background-color: rgb(226,237,224);
     float: left;
     width: 40%;
     height: 100%;
@@ -74,4 +74,8 @@
     width: 50%;
     margin-left: 20%;
     height: 600px;
+}
+
+.ant-layout-sider{
+    background-color: rgb(226, 237, 224) !important;
 }
