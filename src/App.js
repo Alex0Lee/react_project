@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
 import {Icon, Avatar, Layout, Card, Input, Tag, Tooltip, List} from 'antd';
-import WrappedRegistrationForm from './person';
+import Right_person from './person';
 import {Link} from 'react-router-dom'
 import Switch from "react-router-dom/es/Switch";
 import Route from "react-router-dom/es/Route";
@@ -58,13 +58,6 @@ function Left(props) {
     </Sider>
 }
 
-class Right_person extends Component {
-
-    render() {
-        return <WrappedRegistrationForm/>
-    }
-
-}
 
 class Right_myTag extends Component {
 
@@ -565,41 +558,10 @@ class App extends Component {
     };
 
     componentDidMount() {
-        // window.addEventListener('hashchange', () => {
-        //     this.setState({
-        //         route: window.location.hash.substr(1)
-        //     })
-        // })
     };
 
 
     render() {
-        // let Right_Content;
-        // switch (this.state.route) {
-        //     case '/person':
-        //         Right_Content = Right_person;
-        //         break;
-        //     case '/myTag':
-        //         Right_Content = Right_myTag;
-        //         break;
-        //     case '/editPassword':
-        //         Right_Content = Right_editPassword;
-        //         break;
-        //     case '/roomCollection':
-        //         Right_Content = Right_roomCollection;
-        //         break;
-        //     case '/roomPublish':
-        //         Right_Content = Right_roomPublish;
-        //         break;
-        //     case '/activityCollection':
-        //         Right_Content = Right_activityCollection;
-        //         break;
-        //     case '/activityPublish':
-        //         Right_Content = Right_activityPublish;
-        //         break;
-        //     default:
-        //         Right_Content = Right_person;
-        // }
         return (
             <Layout>
                 <Header style={{height: 200}}>Header</Header>
@@ -610,7 +572,7 @@ class App extends Component {
                         {/*切换子组件的路由*/}
                         <Switch>
                             <Route exact path='/person' render={(props) => (
-                                <Right_person data={{name: "wz"}}/>
+                                <Right_person data={{account: "wz"}}/>
                                 // 在这里传入数据，可以通过组件内的this.props.data.$取出 下面的同理
                             )}/>
                             <Route path='/person/my_tag' render={(props) => (

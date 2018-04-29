@@ -30,14 +30,16 @@ const residences = [{
 }];
 
 class RegistrationForm extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
+        this.state = {
+            confirmDirty: false,
+            autoCompleteResult: [],
+
+        };
 
     }
-    state = {
-        confirmDirty: false,
-        autoCompleteResult: [],
-    };
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -45,11 +47,12 @@ class RegistrationForm extends React.Component {
                 console.log('Received values of form: ', values);
             }
         });
-    }
+        console.log(this.props)
 
+    }
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {autoCompleteResult} = this.state;
+        const {autoCompleteResult, name} = this.state;
 
         const formItemLayout = {
             labelCol: {
@@ -74,12 +77,12 @@ class RegistrationForm extends React.Component {
             },
         };
         return (
-            <Form onSubmit={this.handleSubmit} type={{height:"100%"}}>
+            <Form onSubmit={this.handleSubmit} type={{height: "100%"}}>
                 <FormItem
                     {...formItemLayout}
                     label="账号"
                 >
-                    <span className="ant-form-text">jdlskfjsdklfjkds</span>
+                    <span className="ant-form-text">{name}</span>
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
@@ -93,14 +96,14 @@ class RegistrationForm extends React.Component {
                     label="真实姓名"
                     hasFeedback
                 >
-                    <Input value={this.props.container} disabled="True" style={{width: 120,}}/><Icon type="edit" />
+                    <Input value={this.props.container} disabled="True" style={{width: 120,}}/><Icon type="edit"/>
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
                     label="性别"
                 >
                     {getFieldDecorator('radio-group',
-                        {initialValue:"male"}
+                        {initialValue: "male"}
                     )(
                         <RadioGroup>
                             <Radio value="male">男</Radio>
@@ -151,7 +154,7 @@ class RegistrationForm extends React.Component {
                     label="电子邮箱"
                 >
                     {getFieldDecorator('email', {
-                        initialValue:"925862192@qq.com",
+                        initialValue: "925862192@qq.com",
                         rules: [{
                             type: 'email', message: 'The input is not valid E-mail!',
                         }, {
@@ -186,7 +189,7 @@ class RegistrationForm extends React.Component {
                 >
                     <Input value="18711032339" style={{width: '100%'}}/>
                 </FormItem>
-                <FormItem {...tailFormItemLayout} style={{textAlign:'center'}}>
+                <FormItem {...tailFormItemLayout} style={{textAlign: 'center'}}>
                     <Button type="primary" htmlType="submit">保存修改</Button>
                 </FormItem>
             </Form>
@@ -194,5 +197,5 @@ class RegistrationForm extends React.Component {
     }
 }
 
-const WrappedRegistrationForm = Form.create()(RegistrationForm);
-export default WrappedRegistrationForm;
+const Right_person = Form.create()(RegistrationForm);
+export default Right_person;
