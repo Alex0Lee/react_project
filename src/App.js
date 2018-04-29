@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 import Switch from "react-router-dom/es/Switch";
 import Route from "react-router-dom/es/Route";
 import Button from "antd/es/button/button";
+import * as axios from "axios/index";
 
 const {Header, Sider, Footer, Content} = Layout;
 const {Meta} = Card;
@@ -454,10 +455,10 @@ class Right_activityCollection extends Component {
                 href: 'http://ant.design',
                 title: `中南大学搞事情大会${i}`,
                 datetime: "2018年4月28日 12:00",
-                location:"中南大学新校区",
-                type:"读书分享会",
-                host:"生活家",
-                price:"100元",
+                location: "中南大学新校区",
+                type: "读书分享会",
+                host: "生活家",
+                price: "100元",
             });
         }
 
@@ -518,14 +519,14 @@ class Right_activityCollection extends Component {
                                     whiteSpace: "nowrap",
                                     width: "100%",
                                     overflow: "hidden",
-                                    marginTop:"20px",
-                                    marginBottom:"20px"
+                                    marginTop: "20px",
+                                    marginBottom: "20px"
                                 }}>{item.title}</p>
                                 <p style={{}}>时间：{item.datetime}</p>
                                 <p style={{}}>地点：{item.location}</p>
                                 <p style={{}}>类型：{item.type}</p>
                                 <p style={{}}>主办方：{item.host}</p>
-                                <p style={{}}>票价： {item.price}    <Button type="primary" ghost>购票</Button></p>
+                                <p style={{}}>票价： {item.price} <Button type="primary" ghost>购票</Button></p>
                             </div>
                         </div>
                     </List.Item>
@@ -549,19 +550,49 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            level: "teacher",
-            name: "wz",
-            // 可以在这个里面初始化一些数据通过this.state.$key取出
-            //
-        };
+            person_data: {
+                account: null,
+                avatar: null,
+                name: null,
+                gender: null,
+                region: null,
+                school: null,
+                employer: null,
+                contact: null,
+                email: null,
+                type: null,
+                iphone_number: null
+            }
+        }
 
     };
 
-    componentDidMount() {
+    // {
+    //             account: "465131",
+    //             avatar: "http://p2.gexing.com/G1/M00/83/91/rBACE1JziYiyMVMLAAAYkBqG-_8892_200x200_3.gif?recache=20131108",
+    //             name: "王照",
+    //             gender: 1,
+    //             region: ['zhejiang', 'hangzhou', 'xihu'],
+    //             school: "中南大学",
+    //             employer: "中南大学",
+    //             contact: "18711032339",
+    //             email: "925862192@qq.com",
+    //             type: "teacher",
+    //             iphone_number: "18711032339"
+    //         }
+
+    componentWillMount() {
+        axios.get("http://shenghuojia.studio712.cn/server/users/get/person").then(res => {
+            this.setState({
+                person_data: res.data.data
+            })
+        });
+
     };
 
 
     render() {
+
         return (
             <Layout>
                 <Header style={{height: 200}}>Header</Header>
@@ -572,7 +603,7 @@ class App extends Component {
                         {/*切换子组件的路由*/}
                         <Switch>
                             <Route exact path='/person' render={(props) => (
-                                <Right_person data={{account: "wz"}}/>
+                                <Right_person data={this.state.person_data}/>
                                 // 在这里传入数据，可以通过组件内的this.props.data.$取出 下面的同理
                             )}/>
                             <Route path='/person/my_tag' render={(props) => (

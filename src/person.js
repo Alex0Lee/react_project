@@ -1,20 +1,31 @@
 import React, {Component} from 'react';
-import {Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Radio} from 'antd';
+import {
+    Form,
+    Input,
+    Tooltip,
+    Icon,
+    Cascader,
+    Select,
+    Row,
+    Col,
+    Checkbox,
+    Button,
+    AutoComplete,
+    Radio,
+    message
+} from 'antd';
 import FormItem from "antd/es/form/FormItem";
+import axios from "axios";
 
 const RadioGroup = Radio.Group
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 const residences = [{
     value: 'zhejiang',
-    label: 'Zhejiang',
+    label: '浙江',
     children: [{
         value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [{
-            value: 'xihu',
-            label: 'West Lake',
-        }],
+        label: '杭州',
     }],
 }, {
     value: 'jiangsu',
@@ -22,10 +33,6 @@ const residences = [{
     children: [{
         value: 'nanjing',
         label: 'Nanjing',
-        children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-        }],
     }],
 }];
 
@@ -40,19 +47,35 @@ class RegistrationForm extends React.Component {
 
     }
 
+    success = () => {
+        message.success('修改成功！啦啦啦啦啦啦啦~~~~~');
+    };
+    error = () => {
+        message.error('修改失败了，请检查网络状况后重试~~');
+    };
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
                 console.log('Received values of form: ', values);
+                axios.post("http://shenghuojia.studio712.cn/server/users/edit/person", values).then(res => {
+                    if (res.data.status === "success") {
+                        this.success()
+                    }
+                    else {
+                        this.error()
+                    }
+                })
             }
+
         });
-        console.log(this.props)
+
 
     }
+
     render() {
         const {getFieldDecorator} = this.props.form;
-        const {autoCompleteResult, name} = this.state;
+        const {account, avatar, name, gender, region, school, employer, contact, iphone_number, email, type,} = this.props.data;
 
         const formItemLayout = {
             labelCol: {
@@ -82,32 +105,37 @@ class RegistrationForm extends React.Component {
                     {...formItemLayout}
                     label="账号"
                 >
-                    <span className="ant-form-text">{name}</span>
+                    <span className="ant-form-text">{account}</span>
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
                     label="当前头像"
                 >
-                    <img style={{width: 150, height: 150}}
-                         src="https://tpc.googlesyndication.com/daca_images/simgad/3828458306757945173"/>
+                    {getFieldDecorator('avatar', {
+                        initialValue: avatar,
+                        rules: [{required: true, message: '需要提供头像'}],
+                    })(
+                        <img style={{width: 150, height: 150}}
+                             src={avatar}/>
+                    )}
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
                     label="真实姓名"
                     hasFeedback
                 >
-                    <Input value={this.props.container} disabled="True" style={{width: 120,}}/><Icon type="edit"/>
+                    <Input value={name} disabled="True" style={{width: 120,}}/><Icon type="edit"/>
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
                     label="性别"
                 >
-                    {getFieldDecorator('radio-group',
-                        {initialValue: "male"}
+                    {getFieldDecorator('gender',
+                        {initialValue: gender}
                     )(
                         <RadioGroup>
-                            <Radio value="male">男</Radio>
-                            <Radio value="female">女</Radio>
+                            <Radio value={0}>男</Radio>
+                            <Radio value={1}>女</Radio>
                         </RadioGroup>
                     )}
                 </FormItem>
@@ -116,8 +144,8 @@ class RegistrationForm extends React.Component {
                     {...formItemLayout}
                     label="个人所在地"
                 >
-                    {getFieldDecorator('residence', {
-                        initialValue: ['zhejiang', 'hangzhou', 'xihu'],
+                    {getFieldDecorator('region', {
+                        initialValue: region,
                         rules: [{type: 'array', required: true, message: 'Please select your habitual residence!'}],
                     })(
                         <Cascader options={residences}/>
@@ -126,23 +154,31 @@ class RegistrationForm extends React.Component {
                 <FormItem
                     {...formItemLayout}
                     label="毕业院校"
-                    hasFeedback
                 >
-                    <Input value="中南大学" style={{width: 120}}/>
+                    {getFieldDecorator('school', {
+                        initialValue: school,
+                        rules: [{required: false, message: '请输入院校！'}],
+                    })(
+                        <Input style={{width: '50%'}}/>
+                    )}
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
                     label="工作单位"
-                    hasFeedback
                 >
-                    <Input value="中南大学" style={{width: 120}}/>
+                    {getFieldDecorator('employer', {
+                        initialValue: employer,
+                        rules: [{required: false, message: '请输入工作单位！'}],
+                    })(
+                        <Input style={{width: '50%'}}/>
+                    )}
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
                     label="联系电话"
                 >
-                    {getFieldDecorator('phone', {
-                        initialValue: "18711032339",
+                    {getFieldDecorator('contact', {
+                        initialValue: contact,
                         rules: [{required: true, message: 'Please input your phone number!'}],
                     })(
                         <Input style={{width: '100%'}}/>
@@ -154,7 +190,7 @@ class RegistrationForm extends React.Component {
                     label="电子邮箱"
                 >
                     {getFieldDecorator('email', {
-                        initialValue: "925862192@qq.com",
+                        initialValue: email,
                         rules: [{
                             type: 'email', message: 'The input is not valid E-mail!',
                         }, {
@@ -168,8 +204,8 @@ class RegistrationForm extends React.Component {
                     {...formItemLayout}
                     label="职位"
                 >
-                    {getFieldDecorator('level', {
-                        initialValue: "teacher",
+                    {getFieldDecorator('type', {
+                        initialValue: type,
                         rules: [{
                             message: 'The input is not valid E-mail!',
                         }, {
@@ -177,17 +213,21 @@ class RegistrationForm extends React.Component {
                         }],
                     })(
                         <Select style={{width: 120}}>
-                            <Option value="teacher">老师</Option>
-                            <Option value="student">学生</Option>
+                            <Option value="老师">老师</Option>
+                            <Option value="学生">学生</Option>
                         </Select>
                     )}
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
                     label="手机号码"
-                    hasFeedback
                 >
-                    <Input value="18711032339" style={{width: '100%'}}/>
+                    {getFieldDecorator('iphone_number', {
+                        initialValue: iphone_number,
+                        rules: [{required: true, message: 'Please input your phone number!'}],
+                    })(
+                        <Input style={{width: '100%'}}/>
+                    )}
                 </FormItem>
                 <FormItem {...tailFormItemLayout} style={{textAlign: 'center'}}>
                     <Button type="primary" htmlType="submit">保存修改</Button>
